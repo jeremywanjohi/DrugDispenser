@@ -1,2 +1,2 @@
-# DrugDispenser
-A drug dispensing tool
+# Drug Dispenser
+A drug dispensing tool!
