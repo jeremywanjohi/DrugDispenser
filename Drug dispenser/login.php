@@ -1,20 +1,42 @@
 <?php
+session_start();
+
 $email = $_POST['email'];
 $password = $_POST['password'];
-$occupation = $_POST['occupation'];
+$occupation=$_POST['occupation'];
 
-// Check the email and password against your authentication logic
-// For demonstration purposes, let's assume the email is 'test@example.com' and the password is 'password123'
 
-if ($email == 'jeremykwanjohi@gmail.com' && $password == 'Karis2023') {
+// Get the email and password from the user
+
+
+// Create a connection to the database
+$conn = mysqli_connect('localhost','root','','patientdetails');
+
+// Check if the connection was successful
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+// Prepare the SQL query to check email and password
+$query = "SELECT * FROM patientdet WHERE email = '$email' AND password = '$password'";
+
+// Execute the query
+$result = $conn->query($query);
+
+
+if ($result->num_rows > 0) {
+
   // Authentication successful
 
   // Redirect the user to the appropriate page based on their occupation
   if ($occupation == 'doctor') {
+    $_SESSION['email'] = $email;
     header('Location: doctor.php');
   } elseif ($occupation == 'patient') {
+    $_SESSION['email'] = $email;
     header('Location: patient.php');
   } elseif ($occupation == 'pharmacist') {
+    $_SESSION['email'] = $email;
     header('Location: pharmacist.php');
   } else {
     // Invalid occupation
