@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    
+    <style>
+        body {
+            background-image: url('7310061.jpg');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-position: center center;
+            background-color: #f0f0f0;
+            font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .card {
+            border: none;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+            border-radius: 15px;
+        }
+
+        .card-header {
+            background-color: #ff7f00;
+            color: #fff;
+            text-align: center;
+            border-radius: 15px 15px 0 0;
+            font-size: 24px;
+            height: auto;
+        }
+
+        .card-body {
+            background-color: #fff;
+            padding: 20px;
+            height: auto;
+            width: auto;
+             
+        }
+
+        .form-group label {
+            font-weight: bold;
+            font-size: 18px;
+        }
+
+        .form-check-label {
+            margin-left: 10px;
+            font-size: 18px;
+        }
+
+        .btn-primary {
+            background-color: #ff7f00;
+            border: none;
+            border-radius: 20px;
+            font-size: 20px;
+        }
+
+        .btn-primary:hover {
+            background-color: #ff6a00;
+        }
+
+        .toast {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background-color: #ff7f00;
+            color: #fff;
+            display: none;
+            border-radius: 10px;
+            font-size: 18px;
+        }
+
+        .form-control {
+            border-radius: 10px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <form action="login.php" method="POST">
+
+    <div class="card">
+        <div class="card-header">
+            <h1>Login</h1>
+        </div>
+        <div class="card-body">
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="text" class="form-control" id="email" name="email" />
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" class="form-control" id="password" name="password" />
+                </div>
+                <input type="submit" class="btn btn-primary btn-block" value="Login" />
+            </form>
+                <!-- Hidden label and select elements -->
+                <label for="occupation" style="display: none;">Occupation:</label>
+                <select name="occupation" id="occupation" style="display: none;" required>
+                  <option value="doctor">Doctor</option>
+                  <option value="patient">Patient</option>
+                  <option value="pharmacist">Pharmacist</option>
+                  <option value="Admin">Pharmacist</option>
+
+                </select>
+              
+            
+        </div>
+    </div>
+    <div class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header">
+            <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="toast-body">
+            <!-- Toast message will appear here -->
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const loginForm = document.getElementById("loginForm");
+            const toast = document.querySelector(".toast");
+            const toastBody = toast.querySelector(".toast-body");
+
+            loginForm.addEventListener("submit", function (event) {
+                event.preventDefault();
+
+                // Use Fetch API to send login data to the server
+                fetch('login.php', {
+                    method: 'POST',
+                    body: new FormData(loginForm)
+                })
+                .then(response => response.json())
+                .then(data => {
+                    const message = data.message;
+                    toastBody.textContent = message;
+                    toast.style.display = "block";
+
+                    // Hide the toast message after 3 seconds (adjust the time interval as needed)
+                    setTimeout(() => {
+                        toast.style.display = "none";
+                    }, 3000);
+                })
+                .catch(error => console.error('Error:', error));
+            });
+        });
+    </script>
+</body>
+</html>

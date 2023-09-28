@@ -10,5 +10,6 @@ function addDrugDetails() {
   
     // Clear the form after submission
     document.getElementById('drugForm').reset();
+     jknxj
   }
   
