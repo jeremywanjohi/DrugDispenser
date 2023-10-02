@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Drug Dispensing Form</title>
+  <link href="styles2.2.css" rel="stylesheet.css">
+</head>
+
+<body>
+
+  <div class="container">
+    <h1>Add Drug Details</h1>
+    <form id="drugForm" action="drugdetails.php" method="post">
+      <label for="drugName">Drug Name:</label>
+      <input type="text" id="drugName" name="drugName" required><br><br>
+
+      <label for="category">Category:</label>
+      <input type="text" id="category" name="category" required><br><br>
+
+      <label for="image">Image URL:</label>
+      <input type="url" id="image" name="image" required><br><br>
+
+      <button type="submit">Submit</button>
+    </form>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
