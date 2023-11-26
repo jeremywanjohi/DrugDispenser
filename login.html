@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    
+    <!-- Inline CSS for styling the login form -->
+    <style>
+        /* General styling for the body */
+        body {
+            background-image: url('7310061.jpg');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-position: center center;
+            background-color: #f0f0f0;
+            font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        /* Styling for the login container */
+        .login-container {
+            border: none;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+            border-radius: 15px;
+        }
+
+        /* Styling for the card header */
+        .card-header {
+            background-color: #ff7f00;
+            color: #fff;
+            text-align: center;
+            border-radius: 15px 15px 0 0;
+            font-size: 24px;
+            padding: 10px;
+        }
+
+        /* Styling for the card body */
+        .card-body {
+            background-color: #fff;
+            padding: 20px;
+        }
+
+        /* Styling for the form-group labels */
+        .form-group label {
+            font-weight: bold;
+            font-size: 18px;
+        }
+
+        /* Styling for the form-check-label */
+        .form-check-label {
+            margin-left: 10px;
+            font-size: 18px;
+        }
+
+        /* Styling for the primary button */
+        .btn-primary {
+            background-color: #ff7f00;
+            border: none;
+            border-radius: 20px;
+            font-size: 20px;
+            color: #fff;
+            padding: 10px;
+            cursor: pointer;
+        }
+
+        /* Styling for the primary button when hovered */
+        .btn-primary:hover {
+            background-color: #ff6a00;
+        }
+
+        /* Styling for the toast message */
+        .toast {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background-color: #ff7f00;
+            color: #fff;
+            display: none;
+            border-radius: 10px;
+            font-size: 18px;
+        }
+
+        /* Styling for the form-control */
+        .form-control {
+            border-radius: 10px;
+            padding: 10px;
+            width: 100%;
+            box-sizing: border-box;
+            margin-bottom: 15px;
+        }
+
+        /* Styling for the form-group */
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        /* Styling for the registration link */
+        .registration-link {
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        /* Styling for the registration link */
+        .registration-link a {
+            color: #ff7f00;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <div class="card-header">
+            <h1>Login</h1>
+        </div>
+        <div class="card-body">
+            <form action="login.php" method="POST">
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" class="form-control" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" name="password" class="form-control" required>
+                </div>
+
+ 
+
+                <input type="submit" value="Login" class="btn-primary">
+            </form>
+            <div class="registration-link">
+                <a href="index.html">Haven't registered yet? Click here</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

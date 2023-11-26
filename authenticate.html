@@ -1,0 +1,100 @@
+<!-- authenticate.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>User Authentication</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      margin: 20px;
+    }
+
+    h1 {
+      color: #333;
+    }
+
+    form {
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    input {
+      padding: 8px;
+      margin-bottom: 10px;
+    }
+
+    button {
+      padding: 10px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #45a049;
+    }
+
+    #result {
+      margin-top: 20px;
+      border: 1px solid #ddd;
+      padding: 10px;
+      background-color: #f9f9f9;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>User Authentication</h1>
+
+  <form id="authForm">
+    <label for="email">Email:</label>
+    <input type="email" id="email" name="email" required>
+    <label for="password">Password:</label>
+    <input type="password" id="password" name="password" required>
+    <button type="button" onclick="authenticateUser()">Authenticate</button>
+  </form>
+
+  <div id="result"></div>
+
+  <script>
+    function authenticateUser() {
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+
+      fetch('http://localhost:8080/authenticate', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email, password }),
+      })
+      .then(response => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        return response.json();
+      })
+      .then(result => {
+        const resultDiv = document.getElementById('result');
+        resultDiv.innerHTML = `Redirecting to Premium Products Page...`;
+
+        // Redirect to the premium products page with the token as a query parameter
+        window.location.href = `http://localhost:8080/api_products_premium.html?token=${result.token}`;
+      })
+      .catch(error => {
+        console.error('Error authenticating user:', error.message);
+        const resultDiv = document.getElementById('result');
+        resultDiv.innerHTML = `Error: ${error.message}`;
+      });
+    }
+  </script>
+
+</body>
+</html>

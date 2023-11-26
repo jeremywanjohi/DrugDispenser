@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Stylish Example</title>
+  <!-- Link to Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <!-- Link to Font Awesome CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      margin: 20px;
+    }
+
+    h1 {
+      color: #333;
+    }
+
+    form {
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    input {
+      padding: 8px;
+      margin-bottom: 10px;
+    }
+
+    button {
+      padding: 10px;
+      cursor: pointer;
+    }
+
+    button.fetch-data {
+      background-color: #007bff;
+      color: white;
+      border: none;
+    }
+
+    button.fetch-data:hover {
+      background-color: #0056b3;
+    }
+
+    button.get-drug-info, button.get-drugs-by-category {
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+    }
+
+    button.get-drug-info:hover, button.get-drugs-by-category:hover {
+      background-color: #45a049;
+    }
+
+    #result {
+      margin-top: 20px;
+      border: 1px solid #ddd;
+      padding: 10px;
+      background-color: #f9f9f9;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1>Click the link to fetch data from the API</h1>
+
+    <button class="fetch-data" onclick="openNewPage()"><i class="fas fa-cloud-download-alt"></i> Fetch Data</button>
+
+    <hr>
+
+    <h1>Get Drug Information by ID</h1>
+
+    <form id="drugForm">
+      <label for="drugId">Enter Drug ID:</label>
+      <input type="text" id="drugId" name="drugId" required>
+      <button class="get-drug-info" type="button" onclick="openNewPage()"><i class="fas fa-search"></i> Get Drug Info</button>
+    </form>
+
+    <h1>Get Drugs by Category</h1>
+
+    <form id="categoryForm">
+      <label for="category">Enter Category:</label>
+      <input type="text" id="category" name="category" required>
+      <button class="get-drugs-by-category" type="button" onclick="openCategoryPage()"><i class="fas fa-pills"></i> Get Drugs by Category</button>
+    </form>
+
+    <div id="result"></div>
+
+    <!-- Add link to authenticate.html -->
+    <a href="authenticate.html" target="_blank"><i class="fas fa-user-lock"></i> Authenticate</a>
+  </div>
+
+  <!-- Link to Bootstrap JS and Popper.js (required for Bootstrap) -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <!-- Link to Font Awesome JS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/js/all.min.js"></script>
+
+  <script>
+    function openNewPage() {
+      const apiUrl = 'http://localhost:8080/api/data';
+      fetchData(apiUrl);
+    }
+
+    function openCategoryPage() {
+      const category = document.getElementById('category').value.trim();
+      const apiUrl = `http://localhost:8080/api/drugs-by-category/${category}`;
+      fetchData(apiUrl);
+    }
+
+    function fetchData(apiUrl) {
+      fetch(apiUrl)
+        .then(response => response.json())
+        .then(data => {
+          const formattedJson = JSON.stringify(data, null, 2);
+          const newWindow = window.open(apiUrl, '_blank');
+          newWindow.document.write('<pre>' + formattedJson + '</pre>');
+        })
+        .catch(error => {
+          console.error('Error fetching data:', error);
+          alert(`Error fetching data from ${apiUrl}`);
+        });
+    }
+  </script>
+
+</body>
+</html>
