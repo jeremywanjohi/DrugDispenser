@@ -21,20 +21,25 @@ $result = $conn->query($query);
 if ($result->num_rows > 0) {
     // Authentication successful
 
-    // Retrieve the userType from the database
+    // Retrieve the userType and user ID from the database
     $row = $result->fetch_assoc();
     $userType = $row['occupation'];
+    $userId = $row['email'];
+
+    // Update last login time in the database
+    $updateQuery = "UPDATE patientdet SET last_login_time = CURRENT_TIMESTAMP WHERE email = '$userId'";
+    $conn->query($updateQuery);
 
     // Redirect the user to the appropriate page based on their userType
-    if ($userType == 'Patient') {
+    if ($userType == 'patient') {
         $_SESSION['email'] = $email;
         header('Location: products.php');
-    } elseif ($userType == 'Api Regular') {
+    } elseif ($userType == 'api_regular') {
         $_SESSION['email'] = $email;
-        header('Location: api_regular.php');
-    } elseif ($userType == 'Api Premium') {
+        header('Location: tokens.php');
+    } elseif ($userType == 'api_premium') {
         $_SESSION['email'] = $email;
-        header('Location: api_premium.php');
+        header('Location: tokens.php');
     } elseif ($userType == 'Admin') {
         $_SESSION['email'] = $email;
         header('Location: admin.php');
